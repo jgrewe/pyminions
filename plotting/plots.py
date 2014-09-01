@@ -3,9 +3,9 @@ from matplotlib import cm
 from matplotlib.patches import Rectangle
 import numpy as np
 
-def extended_hinton(ax, mu, sigma, mu_max=None, sigma_max=None, cmap=None):
+def hinton(ax, mu, sigma, mu_max=None, sigma_max=None, cmap=None):
     """
-    Plots an extended Hinton plot into the axis. The means are depicted as
+    Plots a Hinton plot into the axis. The means are depicted as
     square size while the standard deviations are depicted by color.
 
     :param ax: matplotlib axis handle
