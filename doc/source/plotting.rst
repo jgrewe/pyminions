@@ -7,5 +7,6 @@ Available modules:
    :maxdepth: 2
 
    cosmetics.rst
+   plots.rst
 
 .. moduleauthor:: Fabian Sinz

@@ -6,6 +6,12 @@
 Welcome to pyminions - a python helper function collection's documentation!
 ===========================================================================
 
+All functions in pyminions can be imported directly via
+
+>>> from pyminions import function_name
+
+
+
 Available modules:
 
 .. toctree::
