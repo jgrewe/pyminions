@@ -76,3 +76,19 @@ def set_boxplot_colors(boxplot, colors):
         whisker, cap = z
         whisker.set_color(colors[i / 2])
         cap.set_color(colors[i / 2])
+
+
+def set_ticklabel_rotation(axis, rotation):
+    """
+        Rotates the tick labels of the selected axis.
+
+    :param axis: the axis, e.g. ax.xaxis, :type matplotlib.Axis
+    :param rotation: A scalar representing the rotation in degrees
+
+    """
+    import matplotlib
+    if not isinstance(axis, matplotlib.axis.Axis):
+        raise ValueError("axis argument is not an instance of matplotlib Axis!")
+
+    for l in axis.get_majorticklabels():
+        l.set_rotation(rotation)
