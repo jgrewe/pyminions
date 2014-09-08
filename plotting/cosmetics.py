@@ -1,7 +1,7 @@
 from itertools import cycle
 import string
-
-__author__ = 'Fabian Sinz'
+from IPython import embed
+__author__ = 'Fabian Sinz, Jan Grewe'
 
 
 def box_off(ax, where=None):
@@ -13,12 +13,11 @@ def box_off(ax, where=None):
     :param where: list with one or more of the following elements: 'left', 'right', 'bottom', 'top' (default: ['right', 'top'])
     """
     if where is None: where = ['right', 'top']
-
     for loc, spine in ax.spines.iteritems():
         if loc in where:
             spine.set_color('none')  # don't draw spine
         else:
-            raise ValueError('unknown spine location: %s' % loc)
+            continue
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
 
