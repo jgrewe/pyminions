@@ -57,8 +57,8 @@ def set_boxplot_colors(boxplot, colors):
 
         Changes the color of boxplot boxes, whiskers, medians and caps.
 
-    @param boxplot: the boxplot @type dict
-    @param colors: list of colors that @type list
+    :param boxplot: the boxplot :type dict
+    :param colors: list of colors that :type list
 
     """
     if not ("boxes" in boxplot.keys() and "medians" in boxplot.keys() and
