@@ -92,3 +92,20 @@ def set_ticklabel_rotation(axis, rotation):
 
     for l in axis.get_majorticklabels():
         l.set_rotation(rotation)
+
+
+def set_axis_label_fontsize(axis, label_size, tick_label_size=None):
+    """
+        Sets axis and tick label font sizes to the desired size.
+
+    :param axis: the axes object
+    :param label_size: the size of the axis label
+    :param tick_label_size: the size of the tick labels. If None, lable_size is used also for tick labels
+
+    """
+    if not tick_label_size:
+        tick_label_size = label_size
+    axis.xaxis.get_label().set_fontsize(label_size)
+    axis.yaxis.get_label().set_fontsize(label_size)
+    for tick in axis.xaxis.get_major_ticks() + axis.yaxis.get_major_ticks():
+        tick.label.set_fontsize(tick_label_size)
