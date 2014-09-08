@@ -50,3 +50,29 @@ def label_axes(fig, labels=None, loc=None, **kwargs):
         ax.annotate(lab, xy=loc,
                     xycoords='axes fraction',
                     **kwargs)
+
+
+def set_boxplot_colors(boxplot, colors):
+    """
+
+        Changes the color of boxplot boxes, whiskers, medians and caps.
+
+    @param boxplot: the boxplot @type dict
+    @param colors: list of colors that @type list
+
+    """
+    if not ("boxes" in boxplot.keys() and "medians" in boxplot.keys() and
+            "caps" in boxplot.keys() and "whiskers" in boxplot.keys()):
+        raise ValueError("Argument passed as boxplot arg, does not describe a boxplot!")
+
+    if len(colors) is not len(boxplot['boxes']):
+        print("Error! I need an extra color for each boxplot! Provided %i colors for %i boxes!" % len(colors), len(boxplot['boxes']))
+        return
+    for box, med, color in zip(boxplot['boxes'], boxplot['medians'], colors):
+        box.set_color(color)
+        med.set_color(color)
+
+    for i, z in enumerate(zip(boxplot['whiskers'], boxplot['caps'])):
+        whisker, cap = z
+        whisker.set_color(colors[i / 2])
+        cap.set_color(colors[i / 2])
