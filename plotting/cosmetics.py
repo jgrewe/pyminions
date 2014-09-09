@@ -1,6 +1,5 @@
 from itertools import cycle
 import string
-from IPython import embed
 __author__ = 'Fabian Sinz, Jan Grewe'
 
 
