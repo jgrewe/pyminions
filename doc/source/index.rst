@@ -6,6 +6,8 @@
 Welcome to pyminions - a python helper function collection's documentation!
 ===========================================================================
 
+Find the source code on Github: https://github.com/fabiansinz/pyminions
+
 All functions in pyminions can be imported directly via
 
 >>> from pyminions import function_name
@@ -18,7 +20,8 @@ Available modules:
    :maxdepth: 2
 
    plotting.rst
-
+   spikes.rst
+   
 Indices and tables
 ==================
 
