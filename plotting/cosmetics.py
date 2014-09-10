@@ -93,18 +93,26 @@ def set_ticklabel_rotation(axis, rotation):
         l.set_rotation(rotation)
 
 
-def set_axis_label_fontsize(axis, label_size, tick_label_size=None):
+def set_axis_label_fontsize(axis, label_size, tick_label_size=None, legend_size=None):
     """
-        Sets axis and tick label font sizes to the desired size.
+        Sets axis, tick label and legend font sizes to the desired size.
 
     :param axis: the axes object
     :param label_size: the size of the axis label
-    :param tick_label_size: the size of the tick labels. If None, lable_size is used also for tick labels
+    :param tick_label_size: the size of the tick labels. If None, lable_size is used
+    :param legend_size: the size of the font used in the legend.If None, the label_size is used.
 
     """
     if not tick_label_size:
         tick_label_size = label_size
+    if not legend_size:
+        legend_size = label_size
     axis.xaxis.get_label().set_fontsize(label_size)
     axis.yaxis.get_label().set_fontsize(label_size)
     for tick in axis.xaxis.get_major_ticks() + axis.yaxis.get_major_ticks():
         tick.label.set_fontsize(tick_label_size)
+
+    l = axis.get_legend()
+    if l:
+        for t in l.get_texts():
+            t.set_fontsize(legend_size)
