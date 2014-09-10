@@ -1,8 +1,10 @@
 import numpy as np
+import warnings
+
 try:
     __import__('odml')
 except ImportError:
-    warnings.warn("odml package not available. Install via")
+    warnings.warn("odml package not available. Install via ")
 
 
 def spike_times_to_binary(spike_times, sample_rate, duration):
