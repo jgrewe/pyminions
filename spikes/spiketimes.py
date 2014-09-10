@@ -2,7 +2,7 @@ import numpy as np
 try:
     __import__('odml')
 except ImportError:
-    warnings.warn("odml package not available. Install via pip or get on Github (https://github.com/G-Node/python-odml)")
+    warnings.warn("odml package not available. Install via pip (sudo pip install odml) or get it on Github (https://github.com/G-Node/python-odml)")
 
 
 def gauss_kernel(sigma, sample_rate, duration):
