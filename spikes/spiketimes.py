@@ -1,4 +1,6 @@
 import numpy as np
+import warnings
+
 try:
     __import__('odml')
 except ImportError:
