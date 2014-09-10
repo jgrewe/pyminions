@@ -2,7 +2,50 @@ import numpy as np
 try:
     __import__('odml')
 except ImportError:
-    warnings.warn("odml package not available. Install via")
+    warnings.warn("odml package not available. Install via pip or get on Github (https://github.com/G-Node/python-odml)")
+
+
+def gauss_kernel(sigma, sample_rate, duration):
+    """
+    Creates a Gaussian kernel centered in a vector of given duration.
+
+    :param sigma: the standard deviation of the kernel in seconds
+    :param sample_rate: the temporal resolution of the kernel in Hz
+    :param duration: the desired duration of the kernel in seconds, (in general at least 4 * sigma)
+
+    :return: the kernel as numpy array
+    """
+    l = duration * sample_rate
+    x = np.arange(-np.floor(l / 2), np.floor(l / 2)) / sample_rate
+    y = (1 / (np.sqrt(2 * np.pi) * sigma)) * np.exp(-(x ** 2 / (2 * sigma ** 2)));
+    y /= np.sum(y)
+    return y
+
+
+def binary_spike_train_to_rate(binary, sample_rate, kernel_width, return_metadata=True):
+    """
+    Converts the binary representation of a spike train to a spike rate. Conversion is done by convolving the binary
+    data with a Gaussian kernel of the specified width.
+
+    :param binary: Binary representation of a spike train. 1 represents the occurrence of a spike, 0 its absence
+    :param sample_rate: the rate in Hz in which the data has been sampled
+    :param kernel_width: the standard deviation of the Gaussian kernel in seconds
+    :param return_metadata: If true the analysis metadata are returned as odml section
+
+    :return: the rate vector as numpy array
+    """
+    g = gauss_kernel(kernel_width, sample_rate, kernel_width * 8)
+    rate = convolve(binary, g, mode='same') * sample_rate
+
+    if not return_metadata or 'odml' not in globals():
+        return rate
+    metadata = odml.Section("PSTH", "analysis/psth")
+    metadata.append(odml.Property("Description", "PSTH estimated by convolution with a Gaussian kernel."))
+    value = odml.Value(kernel_width, unit='s')
+    metadata.append(odml.Property("KernelWidth", value))
+    metadata.append(odml.Property("KernelType", "Gaussian"))
+    metadata.append(odml.Property("Date", dt.date.today().isoformat()))
+    return rate, metadata
 
 
 def spike_times_to_binary(spike_times, sample_rate, duration):
@@ -31,7 +74,8 @@ def serial_correlation(spike_times, max_lags=50, return_metadata=True):
 
     :param spike_times: the spike times of a single trial. This should be a 1D array.
     :param max_lags: The number of lags to take into account
-    :param return_metadata: If true the analysis metadata are returned
+    :param return_metadata: If true the analysis metadata are returned as odml section
+
     :return: the serial correlation as a function of the lag, and, if wanted, the metadata.
 
     """
